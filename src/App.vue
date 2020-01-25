@@ -72,8 +72,8 @@ export default {
           this.shapes.forEach(item => {
             let b = this.centerSeeSaw() - item.x;
             let rad = this.rotation() * Math.PI / 180
-            let y = Math.sin(rad) * (b/Math.cos(rad));
-            item.y = 560 - y ;
+            let y = Math.sin(rad) * (b/Math.cos(rad)) + item.weight*5;
+            item.y = 560 + y ;
             item.rot = this.rotation()*2;
           });
           if(Math.abs(this.rotation())>30 || this.getLeftWeight()>20){
