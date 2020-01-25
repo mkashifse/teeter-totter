@@ -1,7 +1,7 @@
 <template>
-  <svg :width="width" :height="height">
-    <circle cx="25" cy="25" r="25" :fill="fill" />
-    <text v-if="weight" :x="width/5" :y="height/2 + 5 " fill="white">{{weight}} kg</text>
+  <svg>
+    <circle :cx="weight*20+20" :cy="weight*20+20" :r="weight*5+20" :fill="fill" />
+    <text class="text-xs" v-if="weight" :x="weight*20+10" :y="weight*20+20" fill="white">{{weight}} kg</text>
   </svg>
 </template>
 
@@ -12,8 +12,8 @@ export default {
     fill: { default: "black" },
     width: { default: 50 },
     height: { default: 50 },
-    weight: { default: 0 }
-  }
+    weight: { default: 0 },
+  },
 };
 </script>
 
