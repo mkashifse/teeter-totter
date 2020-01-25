@@ -8,9 +8,8 @@
       >{{this.isStart ? 'Start' :'Stop'}}</div>
     </div>
     <svg class="w-screen h-screen bg-gray-400">
-      <RectShape v-for="(item,i) in [1,2,3,4,5,6,7,8,9,10]" :key="i" :weight="item" fill="blue" :x="200+i*100" :y="50" />
-      <CircleShape v-for="(item,i) in [1,2,3,4,5,6,7,8,9,10]" :key="i" :weight="item" fill="blue" :x="200+i*100" :y="500" />
-      <SeeSaw :y="seeSawY" :width="seeSawWidth" height="100" />
+      <RectShape :weight="5" fill="blue" :x="100" :y="50" />
+      <SeeSaw :y="seeSawY" :width="seeSawWidth" />
     </svg>
   </div>
 </template>

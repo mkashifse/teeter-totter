@@ -1,7 +1,7 @@
 <template>
   <svg>
     <RectShape :width="width" :x="+x" :y="+y" rotate="54" />
-    <TriangleShape :x="width/2+ +x - height/2" :y="+y+10" :size="height"  />
+    <polygon :points="this.getPointes()" :style="{'fill':fill}" class="triangle" />
   </svg>
 </template>
 
@@ -14,7 +14,14 @@ export default {
     x: { default: 0 },
     y: { default: 0 },
     width: { default: 400 },
-    height: { default: 50 }
+    height: { default: 5 },
+    size: { default: 50 }
+  },
+  methods: {
+    getPointes() {
+      const p = `${+this.x + +this.width/2},${+this.y} ${this.x+this.width/2 - this.size},${this.y + this.size+40} ${this.x+this.width/2 + this.size},${this.y + this.size+40}`;
+      return p;
+    }
   }
 };
 </script>
