@@ -13,11 +13,11 @@
         :rightWeight="this.rightWeight"
       />
       <g v-for="(shape,i) in shapes" :key="i">
-        <RectShape v-if="shape.type === 1" :weight="shape.weight" fill="#6AA84F" :x="shape.x" :y="shape.y" />
-        <TriangleShape v-if="shape.type === 2" :weight="shape.weight" fill="#FF9900" :x="shape.x" :y="shape.y" />
-        <CircleShape v-if="shape.type === 3" :weight="shape.weight" fill="black" :x="shape.x" :y="shape.y" />
+        <RectShape v-if="shape.type === 1" :rotate="shape.rot" :weight="shape.weight" fill="#6AA84F" :x="shape.x" :y="shape.y" />
+        <TriangleShape v-if="shape.type === 2" :rotate="shape.rot" :weight="shape.weight" fill="#FF9900" :x="shape.x" :y="shape.y" />
+        <CircleShape v-if="shape.type === 3" :weight="shape.weight" fill="#A676E8" :x="shape.x" :y="shape.y" />
       </g>
-      <RectShape :weight="this.rightWeight" fill="#3a668c"  :x="1100" :y="560 + this.rotation()*5" />
+      <RectShape :weight="this.rightWeight" fill="#3a668c"  :x="1100" :y="560 + this.rotation()*5" :rotate="this.rotation()*2" />
     </svg>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
       selected: null,
       rightWeight: 8,
       lefttWeight: 2,
-      seeSawWidth: 900,
+      seeSawWidth: 1500,
       seeSawY: 600,
       isStart: true,
       y: 0,
@@ -68,8 +68,13 @@ export default {
         this.speed += this.gravity;
         if (this.selected.y > 560) {
           this.speed = 0.001;
+          
           this.shapes.forEach(item => {
-            item.y = 560 - this.rotation() * 2;
+            let b = this.centerSeeSaw() - item.x;
+            let rad = this.rotation() * Math.PI / 180
+            let y = Math.sin(rad) * (b/Math.cos(rad));
+            item.y = 560 - y ;
+            item.rot = this.rotation()*2;
           });
           if(Math.abs(this.rotation())>30 || this.getLeftWeight()>20){
             this.toggleRestart();

@@ -9,7 +9,7 @@
 export default {
   name: "CircleShape",
   props: {
-    fill: { default: "black" },
+    fill: { default: "#A676E8" },
     width: { default: 50 },
     height: { default: 50 },
     weight: { default: 0 },
