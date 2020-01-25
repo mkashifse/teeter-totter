@@ -1,14 +1,19 @@
 <template>
   <svg>
-    <RectShape width="400" height="10" x="300" y="300" fill />
-    <TriangleShape x="470" y="310"/>
+    <RectShape :width="width" height="10" :x="+x" :y="+y"  />
+    <TriangleShape :x="width/2+ +x - height/2" :y="+y+10" :size="height" />
   </svg>
 </template>
 
 <script>
 export default {
   name: "SeeSaw",
-  props: {}
+  props: {
+    x: { default: 0 },
+    y: { default: 0 },
+    width: { default: 400 },
+    height: { default: 50 }
+  }
 };
 </script>
 

@@ -1,16 +1,25 @@
 <template>
   <div id="app">
-    <svg class="w-full h-full bg" width="500" height="500">
-      <SeeSaw />
+    <svg class="w-full h-full bg">
+      <CircleShape />
+      <SeeSaw :x="centerSeeSaw()" y="600" :width="seeSawWidth" />
     </svg>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "app",
-  components: { }
+  data: () => {
+    return {
+      seeSawWidth: 600
+    };
+  },
+  methods: {
+    centerSeeSaw() {
+      return window.screen.width / 2 - this.seeSawWidth/2;
+    }
+  }
 };
 </script>
 
@@ -21,14 +30,14 @@ export default {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.w-full{
+.w-full {
   width: 100%;
 }
-.h-full{
+.h-full {
   height: 100vh;
 }
 
-.bg{
+.bg {
   background: rgb(194, 228, 250);
 }
 </style>
