@@ -19,7 +19,7 @@ export default {
     };
   },
   props: {
-    fill: { default: "#000" },
+    fill: { default: "#CC4124" },
     x: { default: 0 },
     y: { default: 0 },
     rotate: { default: 0 },

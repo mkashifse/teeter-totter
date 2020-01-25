@@ -1,27 +1,23 @@
 <template>
   <div id="app">
-    <div class="w-full text-white flex bg-red-600 p-4 shadow-md cursor-pointer">
-      <div class="mr-4" @click="toggleStart()">{{'ReStart'}}</div>
-      <div>{{mouseX}}, {{mouseY}}</div>
+    <div class="w-full text-white flex bg-indigo-600 p-4 shadow-md cursor-pointer">
+      <div class="mr-4" @click="toggleRestart()">{{'ReStart'}}</div>
+      <div>{{mouseX}}, {{mouseY}} {{this.rotation()}}</div>
     </div>
     <svg class="w-screen h-screen bg-gray-400" @click="onMouseOver">
-      <g v-for="(shape,i) in shapes" :key="i">
-        <RectShape :weight="shape.weight" fill="green" :x="shape.x" :y="shape.y" />
-      </g>
-
-      <RectShape
-        :weight="this.rightWeight"
-        fill="blue"
-        :x="1100"
-        :y="560+this.rightWeight*8"
-        :rotate="this.rightWeight*3"
-      />
       <SeeSaw
         :x="centerSeeSaw()"
         :y="seeSawY"
         :width="seeSawWidth"
+        :leftWeight="getLeftWeight()"
         :rightWeight="this.rightWeight"
       />
+      <g v-for="(shape,i) in shapes" :key="i">
+        <RectShape v-if="shape.type === 1" :weight="shape.weight" fill="#6AA84F" :x="shape.x" :y="shape.y" />
+        <TriangleShape v-if="shape.type === 2" :weight="shape.weight" fill="#FF9900" :x="shape.x" :y="shape.y" />
+        <CircleShape v-if="shape.type === 3" :weight="shape.weight" fill="black" :x="shape.x" :y="shape.y" />
+      </g>
+      <RectShape :weight="this.rightWeight" fill="#3a668c"  :x="1100" :y="560 + this.rotation()*5" />
     </svg>
   </div>
 </template>
@@ -39,7 +35,7 @@ export default {
       seeSawY: 600,
       isStart: true,
       y: 0,
-      gravity: 0.02,
+      gravity: 0.05,
       speed: 0.001,
       mouseX: 0,
       mouseY: 0
@@ -62,7 +58,7 @@ export default {
     centerSeeSaw() {
       return window.screen.width / 2 - this.seeSawWidth / 2;
     },
-    toggleStart() {
+    toggleRestart() {
       this.rightWeight = Math.ceil(Math.random() * 10);
       this.shapes = [];
     },
@@ -72,14 +68,24 @@ export default {
         this.speed += this.gravity;
         if (this.selected.y > 560) {
           this.speed = 0.001;
+          this.shapes.forEach(item => {
+            item.y = 560 - this.rotation() * 2;
+          });
+          if(Math.abs(this.rotation())>30 || this.getLeftWeight()>20){
+            this.toggleRestart();
+          }
           clearInterval(interval);
         }
       }, 1);
     },
     getLeftWeight() {
-      return this.shapes
-        .filter(item => item.y > 560)
-        .reduce((p, c) => p + c, 0);
+      return this.shapes.length
+        ? this.shapes.reduce((p, c) => p + c.weight, 0)
+        : 0;
+    },
+    rotation() {
+      const rot = this.rightWeight - this.getLeftWeight();
+      return rot;
     }
   }
 };

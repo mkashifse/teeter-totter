@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     getBalance() {
-      return (this.rightWeight - this.leftWeight)*5;
+      return (this.rightWeight - this.leftWeight)*2;
     },
     getPointes() {
       const p = `${+this.x + +this.width / 2},${+this.y} ${this.x +
