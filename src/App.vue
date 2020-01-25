@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <svg class="w-full h-full bg">
+    <div class="w-full text-white flex bg-red-600 p-4 shadow-md cursor-pointer">
+      <div class="mr-4">Start</div>
+      <div>Stop</div>
+    </div>
+    <svg class="w-screen h-screen bg-gray-400">
       <CircleShape />
       <SeeSaw :x="centerSeeSaw()" y="600" :width="seeSawWidth" />
     </svg>
@@ -15,29 +19,24 @@ export default {
       seeSawWidth: 600
     };
   },
+  mounted() {
+    
+  },
   methods: {
     centerSeeSaw() {
-      return window.screen.width / 2 - this.seeSawWidth/2;
+      return window.screen.width / 2 - this.seeSawWidth / 2;
     }
   }
 };
 </script>
 
 <style>
+@import './assets/tailwind.css';
+
 * {
   padding: 0px;
   margin: 0px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.w-full {
-  width: 100%;
-}
-.h-full {
-  height: 100vh;
-}
-
-.bg {
-  background: rgb(194, 228, 250);
-}
 </style>
